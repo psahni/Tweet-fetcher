@@ -1,0 +1,58 @@
+<!--http://www.9lessons.info/2010/09/twitter-oauth-home-timeline-display.html-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd"> 
+ 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+	<title>index</title> 
+	<meta name="generator" content="TextMate http://macromates.com/"> 
+	<meta name="author" content="Jack Franklin"> 
+	<style type="text/css" media="screen"> 
+		#preload {display: none;}
+	</style> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script> 
+	<script type="text/javascript" charset="utf-8"> 
+	function showTweets(elem, username, number)
+	{
+		var html = '<ul>';
+ 
+ 
+ 
+	var tweetFeed = 'http://twitter.com/status/user_timeline/' + "sahni5" + '.json?count=' + number + '&callback=?'
+		$.getJSON(tweetFeed, function(d)
+		{
+ 
+ 
+			$.each(d, function(i,item)
+			{
+				html+='<li>'+item.text+'</li>';
+			})
+			html+="</ul>";
+			
+			
+			elem.children().fadeOut('fast',function() {
+				
+				elem.append(html);
+			})
+		})
+	}
+		$(function() {
+			$('#error').remove();
+			$('#preload').show();
+			showTweets($('#tweets'), 'Jack_Franklin', 5)
+			
+		});
+		
+	</script> 
+ 
+</head> 
+<body> 
+	
+	<div id="tweets"> 
+		<h3 id="error">There was a problem fetching tweets</h3> 
+		<h3 id="preload">Currently loading your tweets...</h3> 
+	</div> 
+ 
+</body> 
+</html> 
